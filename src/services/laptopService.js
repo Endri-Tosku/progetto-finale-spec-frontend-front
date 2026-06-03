@@ -11,8 +11,21 @@ const BASE_URL = "http://localhost:3001/laptops";
 /*
   Recupera tutti i laptop dal backend
 */
-export async function getAllLaptops() {
-    const response = await axios.get(BASE_URL);
+export async function getAllLaptops(search = "") {
+
+    const response = await axios.get(BASE_URL, {
+        /*
+          params permette di costruire
+          automaticamente la query string.
+
+          search = "MacBook"
+          diventa:
+          ?search=MacBook
+        */
+        params: {
+            search
+        }
+    });
 
     return response.data;
 }

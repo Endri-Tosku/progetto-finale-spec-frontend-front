@@ -9,6 +9,7 @@ function HomePage() {
       ricevuta dal backend.
     */
     const [laptops, setLaptops] = useState([]);
+    const [search, setSearch] = useState("");
 
     /*
       Al primo render del componente
@@ -19,34 +20,53 @@ function HomePage() {
 
         async function fetchLaptops() {
 
-            const data = await getAllLaptops();
-
-            console.log("DATI API:", data);
+            const data = await getAllLaptops(search);
 
             setLaptops(data);
         }
 
         fetchLaptops();
 
-    }, []);
+    }, [search]);
 
     return (
-        <div className="row g-3">
 
-            {
-                laptops.map((laptop) => (
+        <>
+            <div className="mb-4">
+                {/* 
+                  Input controllato.
+                  value:
+                  collega il valore dello stato.
+                  onChange:
+                  aggiorna lo stato ad ogni digitazione.
+                */}
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Cerca un laptop..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
 
-                    <div
-                        key={laptop.id}
-                        className="col-md-4"
-                    >
-                        <LaptopCard laptop={laptop} />
-                    </div>
+            </div>
 
-                ))
-            }
+            <div className="row g-3">
 
-        </div>
+                {
+                    laptops.map((laptop) => (
+
+                        <div
+                            key={laptop.id}
+                            className="col-md-4"
+                        >
+                            <LaptopCard laptop={laptop} />
+                        </div>
+
+                    ))
+                }
+
+            </div>
+        </>
     );
 }
 
