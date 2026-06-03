@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllLaptops } from "../services/laptopService";
+import LaptopCard from "../components/LaptopCard";
 
 function HomePage() {
 
@@ -20,6 +21,8 @@ function HomePage() {
 
             const data = await getAllLaptops();
 
+            console.log("DATI API:", data);
+
             setLaptops(data);
         }
 
@@ -28,19 +31,20 @@ function HomePage() {
     }, []);
 
     return (
-        <div className="container mt-4">
+        <div className="row g-3">
 
-            <h1>Laptop Comparator</h1>
+            {
+                laptops.map((laptop) => (
 
-            <ul>
-                {
-                    laptops.map((laptop) => (
-                        <li key={laptop.id}>
-                            {laptop.title}
-                        </li>
-                    ))
-                }
-            </ul>
+                    <div
+                        key={laptop.id}
+                        className="col-md-4"
+                    >
+                        <LaptopCard laptop={laptop} />
+                    </div>
+
+                ))
+            }
 
         </div>
     );
