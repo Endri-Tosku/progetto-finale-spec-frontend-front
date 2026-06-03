@@ -7,11 +7,12 @@ import FavoritesPage from "./pages/FavoritesPage";
 
 
 function App() {
+
+    /*
+      Definizione delle rotte principali
+      dell'applicazione tramite React Router.
+    */
     return (
-        /*
-        Definizione delle rotte principali
-        dell'applicazione tramite React Router.
-        */
         <BrowserRouter>
             <Routes>
 
