@@ -11,6 +11,7 @@ function HomePage() {
     const [laptops, setLaptops] = useState([]);
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("");
+    const [sortOrder, setSortOrder] = useState("asc");
 
     /*
       Al primo render del componente
@@ -30,12 +31,40 @@ function HomePage() {
 
     }, [search, category]);
 
+    /*
+      Creo una copia dell'array
+      per evitare di modificare lo state originale.
+    */
+
+    // uso lo spread operator per creare una copia dell'array 
+    // se non lo facessi, sort modificherebbe direttamente lo state laptops
+    const sortedLaptops = [...laptops].sort((a, b) => {
+
+        if (sortOrder === "asc") {
+            return a.title.localeCompare(b.title);
+        }
+
+        /*
+         localeCompare confronta due stringhe
+         in ordine alfabetico.
+        
+         A-Z:
+         Apple → Dell → Lenovo
+        
+         Z-A:
+         Lenovo → Dell → Apple
+        */
+
+        return b.title.localeCompare(a.title);
+
+    });
+
     return (
 
         <>
-            <div className="row mb-4">
+            <div className="row mb-3">
 
-                <div className="col-md-6">
+                <div className="col-md-4">
 
                     {/* 
                   Input controllato.
@@ -53,7 +82,7 @@ function HomePage() {
                     />
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-4">
 
                     <select
                         className="form-select"
@@ -85,12 +114,32 @@ function HomePage() {
 
                 </div>
 
+                <div className="col-md-4">
+
+                    <select
+                        className="form-select"
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(e.target.value)}
+                    >
+
+                        <option value="asc">
+                            A-Z
+                        </option>
+
+                        <option value="desc">
+                            Z-A
+                        </option>
+
+                    </select>
+
+                </div>
+
             </div>
 
             <div className="row g-3">
 
                 {
-                    laptops.map((laptop) => (
+                    sortedLaptops.map((laptop) => (
 
                         <div
                             key={laptop.id}
