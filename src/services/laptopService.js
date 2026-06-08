@@ -11,30 +11,27 @@ const BASE_URL = "http://localhost:3001/laptops";
 /*
   Recupera tutti i laptop dal backend
 */
-export async function getAllLaptops(search = "") {
+export async function getAllLaptops(search = "", category = "") {
 
-    const response = await axios.get(BASE_URL, {
-        /*
-          params permette di costruire
-          automaticamente la query string.
+  const response = await axios.get(BASE_URL, {
+    /*
+      I params vengono trasformati
+      automaticamente in query string.
+    */
+    params: {
+      search,
+      category
+    }
+  });
 
-          search = "MacBook"
-          diventa:
-          ?search=MacBook
-        */
-        params: {
-            search
-        }
-    });
-
-    return response.data;
+  return response.data;
 }
 
 /*
   Recupera un singolo laptop tramite id.
 */
 export async function getLaptopById(id) {
-    const response = await axios.get(`${BASE_URL}/${id}`);
+  const response = await axios.get(`${BASE_URL}/${id}`);
 
-    return response.data.laptop;
+  return response.data.laptop;
 }
