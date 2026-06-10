@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 function LaptopCard({ laptop }) {
+
+    const { addFavorite } = useContext(FavoritesContext);
+
     return (
         <div className="card h-100">
             <div className="card-body">
@@ -21,9 +26,18 @@ function LaptopCard({ laptop }) {
                     Dettagli
                 </Link>
 
+                <button
+                    className="btn btn-outline-danger mt-2"
+                    onClick={() => addFavorite(laptop)}
+                >
+                    ❤️ Preferiti
+                </button>
+
+
             </div>
         </div>
     );
 }
+
 
 export default LaptopCard;
