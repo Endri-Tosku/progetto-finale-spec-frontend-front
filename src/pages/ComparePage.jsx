@@ -4,7 +4,7 @@ import { getLaptopById } from "../services/laptopService";
 
 function ComparePage() {
 
-    const { compareList } = useContext(CompareContext);
+    const { compareList, removeFromCompare } = useContext(CompareContext);
 
     const [firstLaptop, setFirstLaptop] = useState(null);
     const [secondLaptop, setSecondLaptop] = useState(null);
@@ -61,6 +61,11 @@ function ComparePage() {
                     <p>Storage: {firstLaptop.storage} GB</p>
                     <p>Display: {firstLaptop.display}"</p>
                     <p>Prezzo: €{firstLaptop.price}</p>
+
+                    <button className="btn btn-danger" onClick={() => removeFromCompare(firstLaptop.id)}>
+                        Rimuovi
+                    </button>
+
                 </div>
 
                 <div className="col-md-6">
@@ -72,6 +77,11 @@ function ComparePage() {
                     <p>Storage: {secondLaptop.storage} GB</p>
                     <p>Display: {secondLaptop.display}"</p>
                     <p>Prezzo: €{secondLaptop.price}</p>
+
+                    <button className="btn btn-danger" onClick={() => removeFromCompare(secondLaptop.id)}>
+                        Rimuovi
+                    </button>
+
                 </div>
 
             </div>

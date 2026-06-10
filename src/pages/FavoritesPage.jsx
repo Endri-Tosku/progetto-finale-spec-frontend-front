@@ -4,7 +4,7 @@ import LaptopCard from "../components/LaptopCard";
 
 
 function FavoritesPage() {
-    const { favorites } = useContext(FavoritesContext);
+    const { favorites, removeFavorite } = useContext(FavoritesContext);
     return (
         <div className="container mt-4">
 
@@ -33,6 +33,11 @@ function FavoritesPage() {
                                     className="col-md-4"
                                 >
                                     <LaptopCard laptop={laptop} />
+
+                                    <button className="btn btn-danger mt-2 w-100" onClick={() => removeFavorite(laptop.id)}>
+                                        Rimuovi dai preferiti
+                                    </button>
+
                                 </div>
 
                             ))
