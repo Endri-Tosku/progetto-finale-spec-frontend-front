@@ -28,6 +28,13 @@ function FavoritesProvider({ children }) {
     */
     function addFavorite(laptop) {
 
+        // Controllo per evitare duplicati nei preferiti.
+        const alreadyExists = favorites.some(
+            (item) => item.id === laptop.id
+        );
+
+        // Se il laptop è già nei preferiti, non lo aggiungo di nuovo.
+        if (alreadyExists) return;
         setFavorites((prevFavorites) => [
             ...prevFavorites,
             laptop

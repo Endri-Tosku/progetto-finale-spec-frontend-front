@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
+import { CompareContext } from "../context/CompareContext";
 
 function LaptopCard({ laptop }) {
 
     const { addFavorite } = useContext(FavoritesContext);
+    const { addToCompare } = useContext(CompareContext);
 
     return (
         <div className="card h-100">
@@ -33,6 +35,12 @@ function LaptopCard({ laptop }) {
                     ❤️ Preferiti
                 </button>
 
+                <button
+                    className="btn btn-outline-primary mt-2 ms-2"
+                    onClick={() => addToCompare(laptop)}
+                >
+                    Confronta
+                </button>
 
             </div>
         </div>
