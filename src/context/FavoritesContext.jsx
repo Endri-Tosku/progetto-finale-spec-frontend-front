@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 /*
  Context che renderà disponibili
@@ -19,9 +19,39 @@ function FavoritesProvider({ children }) {
     /*
       Array dei laptop preferiti.
     */
-    const [favorites, setFavorites] = useState([]);
+    const [favorites, setFavorites] = useState(() => {
 
-    console.log(favorites);
+        /*
+          Recupera i preferiti salvati.
+        */
+        const savedFavorites =
+            localStorage.getItem("favorites");
+
+        /*
+          Se esistono li converte
+          da stringa JSON ad array.
+        */
+        return savedFavorites
+            ? JSON.parse(savedFavorites)
+            : [];
+    });
+
+    useEffect(() => {
+
+        /*
+          Salva i preferiti nel browser
+          ogni volta che cambiano.
+        */
+        localStorage.setItem(
+            "favorites",
+            JSON.stringify(favorites)
+            /* 
+            uso JSON.stringify perché
+            localStorage può salvare solo stringhe
+            */
+        );
+
+    }, [favorites]);
 
     /*
       Aggiunge un laptop ai preferiti.
