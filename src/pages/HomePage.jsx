@@ -136,22 +136,40 @@ function HomePage() {
 
             </div>
 
-            <div className="row g-3">
+            {/*
+               Gestione dello stato vuoto.
+               Se la ricerca o i filtri
+               non restituiscono risultati,
+               mostro un messaggio all'utente.
+            */}
+            {
+                sortedLaptops.length === 0 ? (
 
-                {
-                    sortedLaptops.map((laptop) => (
+                    <div className="alert alert-warning">
 
-                        <div
-                            key={laptop.id}
-                            className="col-md-4"
-                        >
-                            <LaptopCard laptop={laptop} />
-                        </div>
+                        Nessun laptop trovato.
 
-                    ))
-                }
+                    </div>
 
-            </div>
+                ) : (
+                    <div className="row g-3">
+
+                        {
+                            sortedLaptops.map((laptop) => (
+
+                                <div
+                                    key={laptop.id}
+                                    className="col-md-4"
+                                >
+                                    <LaptopCard laptop={laptop} />
+                                </div>
+
+                            ))
+                        }
+
+                    </div>
+                )
+            }
         </>
     );
 }
