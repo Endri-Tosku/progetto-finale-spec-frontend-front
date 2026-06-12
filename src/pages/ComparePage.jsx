@@ -50,42 +50,83 @@ function ComparePage() {
 
             <h1>Comparatore Laptop</h1>
 
-            <div className="row">
+            <table className="table table-bordered table-striped mt-4">
 
-                <div className="col-md-6">
-                    <h3>{firstLaptop.title}</h3>
+                <thead>
 
-                    <p>Brand: {firstLaptop.brand}</p>
-                    <p>Processore: {firstLaptop.processor}</p>
-                    <p>RAM: {firstLaptop.ram} GB</p>
-                    <p>Storage: {firstLaptop.storage} GB</p>
-                    <p>Display: {firstLaptop.display}"</p>
-                    <p>Prezzo: €{firstLaptop.price}</p>
+                    <tr>
+                        <th>Nome</th>
+                        <th>{firstLaptop.title}</th>
+                        <th>{secondLaptop.title}</th>
+                    </tr>
 
-                    <button className="btn btn-danger" onClick={() => removeFromCompare(firstLaptop.id)}>
-                        Rimuovi
-                    </button>
+                </thead>
 
-                </div>
+                <tbody>
 
-                <div className="col-md-6">
-                    <h3>{secondLaptop.title}</h3>
+                    <tr>
+                        <td>Categoria</td>
+                        <td>{firstLaptop.category}</td>
+                        <td>{secondLaptop.category}</td>
+                    </tr>
 
-                    <p>Brand: {secondLaptop.brand}</p>
-                    <p>Processore: {secondLaptop.processor}</p>
-                    <p>RAM: {secondLaptop.ram} GB</p>
-                    <p>Storage: {secondLaptop.storage} GB</p>
-                    <p>Display: {secondLaptop.display}"</p>
-                    <p>Prezzo: €{secondLaptop.price}</p>
+                    <tr>
+                        <td>Brand</td>
+                        <td>{firstLaptop.brand}</td>
+                        <td>{secondLaptop.brand}</td>
+                    </tr>
 
-                    <button className="btn btn-danger" onClick={() => removeFromCompare(secondLaptop.id)}>
-                        Rimuovi
-                    </button>
+                    <tr>
+                        <td>Processore</td>
+                        <td>{firstLaptop.processor}</td>
+                        <td>{secondLaptop.processor}</td>
+                    </tr>
 
-                </div>
+                    <tr>
+                        <td>RAM</td>
+                        <td>{firstLaptop.ram} GB</td>
+                        <td>{secondLaptop.ram} GB</td>
+                    </tr>
+
+                    <tr>
+                        <td>Storage</td>
+                        <td>{firstLaptop.storage} GB</td>
+                        <td>{secondLaptop.storage} GB</td>
+                    </tr>
+
+                    <tr>
+                        <td>Display</td>
+                        <td>{firstLaptop.display}"</td>
+                        <td>{secondLaptop.display}"</td>
+                    </tr>
+
+                    <tr>
+                        <td>Prezzo</td>
+                        <td>€{firstLaptop.price}</td>
+                        <td>€{secondLaptop.price}</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div className="d-flex gap-2">
+
+                <button
+                    className="btn btn-danger"
+                    onClick={() => removeFromCompare(firstLaptop.id)}
+                >
+                    Rimuovi {firstLaptop.title}
+                </button>
+
+                <button
+                    className="btn btn-danger"
+                    onClick={() => removeFromCompare(secondLaptop.id)}
+                >
+                    Rimuovi {secondLaptop.title}
+                </button>
 
             </div>
-
         </div>
     );
 }
