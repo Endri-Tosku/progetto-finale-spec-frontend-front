@@ -1,6 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getLaptopById } from "../services/laptopService";
+import { FavoritesContext } from "../context/FavoritesContext";
+import { CompareContext } from "../context/CompareContext";
+
+/*
+  Pagina di dettaglio.
+
+  Recupera l'id dalla URL tramite useParams
+  ed esegue una richiesta al backend
+  per ottenere tutte le informazioni
+  del laptop selezionato.
+*/
 
 function DetailPage() {
 
@@ -10,6 +21,9 @@ function DetailPage() {
     */
     const [laptop, setLaptop] = useState(null);
     const { id } = useParams();
+
+    const { addFavorite } = useContext(FavoritesContext);
+    const { addToCompare } = useContext(CompareContext);
 
     useEffect(() => {
 
@@ -29,37 +43,85 @@ function DetailPage() {
     }
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-4">
 
-            <div className="card">
+            <div className="card shadow">
 
                 <div className="card-body">
 
-                    <h1>{laptop.title}</h1>
+                    <h1 className="mp-3">
+                        💻{laptop.title}
+                    </h1>
 
-                    <p><strong>Categoria:</strong> {laptop.category}</p>
+                    <span className="badge bg-primary mb-4">
+                        {laptop.category}
+                    </span>
 
-                    <p><strong>Brand:</strong> {laptop.brand}</p>
+                    <div className="row">
 
-                    <p><strong>Processore:</strong> {laptop.processor}</p>
+                        <div className="col-md-6">
+                            <p>
+                                <strong>Brand:</strong> {laptop.brand}
+                            </p>
 
-                    <p><strong>RAM:</strong> {laptop.ram} GB</p>
+                            <p>
+                                <strong>Processore:</strong> {laptop.processor}</p>
+                            <p>
+                                <strong>RAM:</strong> {laptop.ram} GB</p>
+                            <p>
+                                <strong>Storage:</strong> {laptop.storage} GB
+                            </p>
 
-                    <p><strong>Storage:</strong> {laptop.storage} GB</p>
+                        </div>
 
-                    <p><strong>Display:</strong> {laptop.display}"</p>
+                        <div className="col-md-6">
 
-                    <p><strong>Prezzo:</strong> € {laptop.price}</p>
+                            <p>
+                                <strong>Display:</strong> {laptop.display}"
+                            </p>
 
-                    <p><strong>Descrizione:</strong></p>
+                            <p>
+                                <strong>Prezzo:</strong> € {laptop.price}
+                            </p>
 
-                    <p>{laptop.description}</p>
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <h4>
+                        Descrizione:
+                    </h4>
+
+                    <p>
+                        {laptop.description}
+                    </p>
+
+                    <div className="d-flex gap-2 mt-4">
+
+                        <button
+                            className="btn btn-outline-danger"
+                            onClick={() => addFavorite(laptop)}
+                        >
+                            ❤️ Preferiti
+                        </button>
+
+                        <button
+                            className="btn btn-outline-warning"
+                            onClick={() => addToCompare(laptop)}
+                        >
+                            ⚖️ Confronta
+                        </button>
+
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
+
     );
 }
 

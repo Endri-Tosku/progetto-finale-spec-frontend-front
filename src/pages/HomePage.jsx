@@ -61,115 +61,153 @@ function HomePage() {
 
     return (
 
+
+        /*
+          Sezione filtri.
+
+          Permette all'utente di:
+          - cercare per titolo
+          - filtrare per categoria
+          - ordinare alfabeticamente
+
+          I risultati vengono aggiornati
+          automaticamente al cambiamento
+          degli stati.
+        */
+
         <>
-            <div className="row mb-3">
+            <div className="container py-4">
+                <div className="text-center mb-5">
 
-                <div className="col-md-4">
+                    <h1 className="display-4 fw-bold">
+                        💻 Laptop Comparator
+                    </h1>
 
-                    {/* 
-                  Input controllato.
-                  value:
-                  collega il valore dello stato.
-                  onChange:
-                  aggiorna lo stato ad ogni digitazione.
-                */}
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Cerca un laptop..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                </div>
+                    <p className="lead text-muted">
 
-                <div className="col-md-4">
+                        Confronta caratteristiche, prezzi e specifiche
+                        dei migliori laptop.
 
-                    <select
-                        className="form-select"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                    >
-
-                        <option value="">
-                            Tutte le categorie
-                        </option>
-
-                        <option value="Gaming">
-                            Gaming
-                        </option>
-
-                        <option value="Business">
-                            Business
-                        </option>
-
-                        <option value="Student">
-                            Student
-                        </option>
-
-                        <option value="Ultrabook">
-                            Ultrabook
-                        </option>
-
-                    </select>
+                    </p>
 
                 </div>
 
-                <div className="col-md-4">
+                <div className="card shadow-sm mb-4">
 
-                    <select
-                        className="form-select"
-                        value={sortOrder}
-                        onChange={(e) => setSortOrder(e.target.value)}
-                    >
+                    <div className="card-body">
+                        <div className="row mb-3">
 
-                        <option value="asc">
-                            A-Z
-                        </option>
+                            <div className="col-md-4">
 
-                        <option value="desc">
-                            Z-A
-                        </option>
+                                {/* 
+                                   Input controllato.
+                                   value:
+                                   collega il valore dello stato.
+                                   onChange:
+                                   aggiorna lo stato ad ogni digitazione.
+                                */}
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Cerca un laptop..."
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                            </div>
 
-                    </select>
+                            <div className="col-md-4">
+
+                                <select
+                                    className="form-select"
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value)}
+                                >
+
+                                    <option value="">
+                                        Tutte le categorie
+                                    </option>
+
+                                    <option value="Gaming">
+                                        Gaming
+                                    </option>
+
+                                    <option value="Business">
+                                        Business
+                                    </option>
+
+                                    <option value="Student">
+                                        Student
+                                    </option>
+
+                                    <option value="Ultrabook">
+                                        Ultrabook
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div className="col-md-4">
+
+                                <select
+                                    className="form-select"
+                                    value={sortOrder}
+                                    onChange={(e) => setSortOrder(e.target.value)}
+                                >
+
+                                    <option value="asc">
+                                        A-Z
+                                    </option>
+
+                                    <option value="desc">
+                                        Z-A
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-            </div>
-
-            {/*
+                {/*
                Gestione dello stato vuoto.
                Se la ricerca o i filtri
                non restituiscono risultati,
                mostro un messaggio all'utente.
             */}
-            {
-                sortedLaptops.length === 0 ? (
+                {
+                    sortedLaptops.length === 0 ? (
 
-                    <div className="alert alert-warning">
+                        <div className="alert alert-warning">
 
-                        Nessun laptop trovato.
+                            Nessun laptop trovato.
 
-                    </div>
+                        </div>
 
-                ) : (
-                    <div className="row g-3">
+                    ) : (
+                        <div className="row g-3">
 
-                        {
-                            sortedLaptops.map((laptop) => (
+                            {
+                                sortedLaptops.map((laptop) => (
 
-                                <div
-                                    key={laptop.id}
-                                    className="col-md-4"
-                                >
-                                    <LaptopCard laptop={laptop} />
-                                </div>
+                                    <div
+                                        key={laptop.id}
+                                        className="col-md-4"
+                                    >
+                                        <LaptopCard laptop={laptop} />
+                                    </div>
 
-                            ))
-                        }
+                                ))
+                            }
 
-                    </div>
-                )
-            }
+                        </div>
+                    )
+                }
+            </div>
         </>
     );
 }

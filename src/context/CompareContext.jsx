@@ -65,13 +65,18 @@ function CompareProvider({ children }) {
         );
     }
 
+    function clearCompare() {
+        setCompareList([]);
+    }
+
     return (
 
         <CompareContext.Provider
             value={{
                 compareList,
                 addToCompare,
-                removeFromCompare
+                removeFromCompare,
+                clearCompare
             }}
         >
             {children}

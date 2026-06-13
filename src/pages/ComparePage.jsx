@@ -4,7 +4,7 @@ import { getLaptopById } from "../services/laptopService";
 
 function ComparePage() {
 
-    const { compareList, removeFromCompare } = useContext(CompareContext);
+    const { compareList, removeFromCompare, clearCompare } = useContext(CompareContext);
 
     const [firstLaptop, setFirstLaptop] = useState(null);
     const [secondLaptop, setSecondLaptop] = useState(null);
@@ -124,6 +124,13 @@ function ComparePage() {
                     onClick={() => removeFromCompare(secondLaptop.id)}
                 >
                     Rimuovi {secondLaptop.title}
+                </button>
+
+                <button
+                    className="btn btn-danger"
+                    onClick={clearCompare}
+                >
+                    🗑️ Svuota confronto
                 </button>
 
             </div>

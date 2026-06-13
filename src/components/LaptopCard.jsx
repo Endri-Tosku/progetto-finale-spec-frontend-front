@@ -3,48 +3,75 @@ import { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { CompareContext } from "../context/CompareContext";
 
-function LaptopCard({ laptop }) {
+function LaptopCard({ laptop, showRemoveFavorite = false }) {
 
-    const { addFavorite } = useContext(FavoritesContext);
+    const { addFavorite, removeFavorite } = useContext(FavoritesContext);
     const { addToCompare } = useContext(CompareContext);
 
+    /*
+      Card riutilizzabile.
+    
+      Mostra le informazioni principali
+      del laptop e permette di:
+    
+      - vedere il dettaglio
+      - aggiungere ai preferiti
+      - aggiungere al comparatore
+    */
+
     return (
-        <div className="card h-100">
-            <div className="card-body">
+
+        <div className="card h-100 shadow-sm">
+
+            <div className="card-body d-flex flex-column">
 
                 <h5 className="card-title">
-                    <i className="bi bi-laptop me-2"></i>
-                    {laptop.title}
+                    💻 {laptop.title}
                 </h5>
 
-                <p className="card-text">
-                    Categoria: {laptop.category}
-                </p>
+                <span className="badge bg-secondary mb-3">
+                    {laptop.category}
+                </span>
 
-                <Link
-                    to={`/laptop/${laptop.id}`}
-                    className="btn btn-primary"
-                >
-                    Dettagli
-                </Link>
+                <div className="mt-auto d-grid gap-2">
 
-                <button
-                    className="btn btn-outline-danger mt-2"
-                    onClick={() => addFavorite(laptop)}
-                >
-                    ❤️ Preferiti
-                </button>
+                    <Link
+                        to={`/laptop/${laptop.id}`}
+                        className="btn btn-primary"
+                    >
+                        👁️ Dettagli
+                    </Link>
 
-                <button
-                    className="btn btn-outline-primary mt-2 ms-2"
-                    onClick={() => addToCompare(laptop)}
-                >
-                    Confronta
-                </button>
+                    <button
+                        className="btn btn-outline-danger"
+                        onClick={() => addFavorite(laptop)}
+                    >
+                        ❤️ Preferiti
+                    </button>
+
+                    <button
+                        className="btn btn-outline-warning"
+                        onClick={() => addToCompare(laptop)}
+                    >
+                        ⚖️ Confronta
+                    </button>
+
+                    {showRemoveFavorite && (
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => removeFavorite(laptop.id)}
+                        >
+                            ❌ Rimuovi dai preferiti
+                        </button>
+                    )}
+
+                </div>
 
             </div>
+
         </div>
     );
+
 }
 
 
