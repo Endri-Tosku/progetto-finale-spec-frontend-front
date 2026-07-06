@@ -2,8 +2,9 @@ import { createContext, useState, useEffect } from "react";
 
 export const CompareContext = createContext();
 
+// Provider per il contesto di confronto
 function CompareProvider({ children }) {
-
+    // Array dei laptop da confrontare.
     const [compareList, setCompareList] = useState(() => {
 
         /*
@@ -14,6 +15,7 @@ function CompareProvider({ children }) {
             localStorage.getItem("compareList");
 
         return savedCompare
+            // JSON.parse Serve a trasformare nuovamente la stringa in un array JavaScript.
             ? JSON.parse(savedCompare)
             : [];
     });
@@ -33,17 +35,13 @@ function CompareProvider({ children }) {
 
     function addToCompare(laptop) {
 
-        /*
-         Massimo 2 laptop.
-        */
+        // Limite massimo di laptop da confrontare
         if (compareList.length >= 2) {
             alert("Puoi confrontare massimo 2 laptop");
             return;
         }
 
-        /*
-         Evita duplicati.
-        */
+        // Controllo per evitare duplicati nel comparatore.
         const exists = compareList.some(
             item => item.id === laptop.id
         );
@@ -72,6 +70,7 @@ function CompareProvider({ children }) {
     return (
 
         <CompareContext.Provider
+            //value è l'oggetto che contiene i dati e le funzioni che vogliamo condividere con i componenti figli
             value={{
                 compareList,
                 addToCompare,
@@ -79,6 +78,7 @@ function CompareProvider({ children }) {
                 clearCompare
             }}
         >
+            {/*homesso {children} perché è necessario per rendere disponibili i componenti figli all'interno del provider*/}
             {children}
         </CompareContext.Provider>
 

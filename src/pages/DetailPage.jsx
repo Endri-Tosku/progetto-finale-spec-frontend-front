@@ -19,7 +19,9 @@ function DetailPage() {
       useParams permette di recuperare
       i parametri presenti nella URL.
     */
+    // useState per memorizzare le informazioni del laptop, in null inizialmente perché non abbiamo ancora recuperato i dati dal backend
     const [laptop, setLaptop] = useState(null);
+    // useParams mi permette di recuperare questo id
     const { id } = useParams();
 
     const { addFavorite } = useContext(FavoritesContext);
@@ -27,17 +29,22 @@ function DetailPage() {
 
     useEffect(() => {
 
+        // Funzione asincrona per recuperare i dati del laptop dal backend
         async function fetchLaptop() {
-
+            // Recuperiamo i dati del laptop dal backend tramite l'id
             const data = await getLaptopById(id);
+            // Logghiamo i dati per verificare che siano corretti
+            // mi permette di vedere cosa sto ricevendo dal backend e se i dati sono corretti
             console.log(data);
+            // Aggiorniamo lo stato con i dati recuperati
             setLaptop(data);
         }
-
+        // Chiamiamo la funzione per recuperare i dati del laptop
         fetchLaptop();
 
-    }, [id]);
+    }, [id]);//[id] mi permette di eseguire l'effetto ogni volta che l'id cambia
 
+    // Se il laptop non è ancora stato caricato, mostriamo un messaggio di caricamento
     if (!laptop) {
         return <h2>Caricamento...</h2>;
     }

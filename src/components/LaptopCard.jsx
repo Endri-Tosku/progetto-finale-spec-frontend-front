@@ -3,8 +3,10 @@ import { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { CompareContext } from "../context/CompareContext";
 
+// Card riutilizzabile per mostrare le informazioni principali di un laptop e permettere di aggiungerlo ai preferiti o al comparatore.
 function LaptopCard({ laptop, showRemoveFavorite = false }) {
 
+    // Accediamo ai metodi del contesto dei preferiti e del comparatore
     const { addFavorite, removeFavorite } = useContext(FavoritesContext);
     const { addToCompare } = useContext(CompareContext);
 

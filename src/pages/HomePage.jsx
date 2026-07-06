@@ -4,14 +4,14 @@ import LaptopCard from "../components/LaptopCard";
 
 function HomePage() {
 
-    /*
-      Contiene la lista dei laptop
-      ricevuta dal backend.
-    */
-    const [laptops, setLaptops] = useState([]);
-    const [search, setSearch] = useState("");
-    const [category, setCategory] = useState("");
-    const [sortOrder, setSortOrder] = useState("asc");
+    // laptops contiene i dati ricevuti dal backend
+    const [laptops, setLaptops] = useState([]); // ho usato ([]) invece di null perché voglio inizializzare lo stato come un array vuoto, così posso usare metodi come map senza errori. 
+    // search contiene il testo della ricerca
+    const [search, setSearch] = useState(""); // ho usato ("") invece di null perché voglio inizializzare lo stato come una stringa vuota, così posso concatenare senza errori.
+    // category contiene il filtro della categoria
+    const [category, setCategory] = useState(""); // category parte come stringa vuota perché voglio che inizialmente vengano mostrati tutti i laptop, senza filtri.
+    // sortOrder contiene il tipo di ordinamento alfabetico
+    const [sortOrder, setSortOrder] = useState("asc"); // sortOrder parte come "asc" perché voglio che inizialmente i laptop vengano ordinati in ordine alfabetico crescente.
 
     /*
       Al primo render del componente
@@ -20,8 +20,20 @@ function HomePage() {
     */
     useEffect(() => {
 
+        /* 
+        ho messo async function fetchLaptops() e fetchLaptops() 
+        perché useEffect non può essere dichiarata come async, 
+        quindi creo una funzione asincrona all'interno di useEffect e la richiamo subito dopo.
+        */
+
+        /* 
+        react non permette di scrivere useEffect(async () => { ... }) 
+        perché useEffect deve restituire una funzione di cleanup o nulla
+        */
+
         async function fetchLaptops() {
 
+            // ho messo search e category nelle dipendenze perché voglio che la lista dei laptop venga aggiornata ogni volta che l'utente cambia il testo della ricerca o il filtro della categoria.
             const data = await getAllLaptops(search, category);
 
             setLaptops(data);
@@ -151,7 +163,9 @@ function HomePage() {
 
                                 <select
                                     className="form-select"
+                                    // value collega il valore dello stato sortOrder
                                     value={sortOrder}
+                                    // onChange aggiorna lo stato sortOrder ad ogni selezione
                                     onChange={(e) => setSortOrder(e.target.value)}
                                 >
 
@@ -174,12 +188,13 @@ function HomePage() {
                 </div>
 
                 {/*
-               Gestione dello stato vuoto.
-               Se la ricerca o i filtri
-               non restituiscono risultati,
-               mostro un messaggio all'utente.
-            */}
+                  Gestione dello stato vuoto.
+                  Se la ricerca o i filtri
+                  non restituiscono risultati,
+                  mostro un messaggio all'utente.
+                */}
                 {
+                    // sortedLaptops.length === 0 ? è un operatore ternario che verifica se la lunghezza dell'array sortedLaptops è uguale a 0
                     sortedLaptops.length === 0 ? (
 
                         <div className="alert alert-warning">
@@ -192,6 +207,7 @@ function HomePage() {
                         <div className="row g-3">
 
                             {
+                                // utilizzo map per creare dinamicamente una LaptopCard per ogni laptop ricevuto dal backend
                                 sortedLaptops.map((laptop) => (
 
                                     <div

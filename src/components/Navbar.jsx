@@ -1,5 +1,7 @@
+// importo i moduli necessari da React e React Router
 import { Link } from "react-router-dom";
 import { useContext } from "react";
+// importo i contesti per i preferiti e il comparatore
 import { FavoritesContext } from "../context/FavoritesContext";
 import { CompareContext } from "../context/CompareContext";
 
@@ -17,11 +19,13 @@ import { CompareContext } from "../context/CompareContext";
 
 function Navbar() {
 
+    // Recupero i contatori dei preferiti e del comparatore dai rispettivi contesti
     const { favorites } = useContext(FavoritesContext);
     const { compareList } = useContext(CompareContext);
 
     return (
 
+        // Navbar principale con link alla home, al comparatore e ai preferiti
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
 
             <div className="container">

@@ -8,7 +8,6 @@ import FavoritesProvider from "./context/FavoritesContext";
 import CompareProvider from "./context/CompareContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-
   <FavoritesProvider>
 
     <CompareProvider>

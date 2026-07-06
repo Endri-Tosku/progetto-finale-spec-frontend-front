@@ -15,10 +15,8 @@ function ComparePage() {
 
             if (compareList.length !== 2) return;
 
-            /*
-              Promise.all esegue entrambe
-              le richieste contemporaneamente.
-            */
+
+            // Promise.all esegue entrambe le richieste contemporaneamente.
             const [firstData, secondData] = await Promise.all([
                 getLaptopById(compareList[0].id),
                 getLaptopById(compareList[1].id)
@@ -48,7 +46,9 @@ function ComparePage() {
     return (
         <div className="container mt-4">
 
-            <h1>Comparatore Laptop</h1>
+            <h1 className="mb-4 text-center">
+                ⚖️ Confronto Laptop
+            </h1>
 
             <table className="table table-bordered table-striped mt-4">
 
